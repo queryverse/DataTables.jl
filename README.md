@@ -1,6 +1,6 @@
 # QueryTables.jl
 
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Build Status](https://travis-ci.com/queryverse/QueryTables.jl.svg?branch=master)](https://travis-ci.com/queryverse/QueryTables.jl)
 [![Build status](https://ci.appveyor.com/api/projects/status/nxtbjw982bd7bby6/branch/master?svg=true)](https://ci.appveyor.com/project/queryverse/querytables-jl/branch/master)
 [![codecov](https://codecov.io/gh/queryverse/QueryTables.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/queryverse/QueryTables.jl)
