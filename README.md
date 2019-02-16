@@ -7,14 +7,14 @@
 
 ## Overview
 
-A simple table type for the [Queryverse](https://github.com/queryverse).
+A simple read-only table type for the [Queryverse](https://github.com/queryverse).
 
 ## Installation
 
 You can install the package at the Pkg REPL-mode with:
 
 ```julia
-pkg> add https://github.com/queryverse/QueryTables.jl.git
+pkg> add QueryTables
 ```
 
 ## Getting started
