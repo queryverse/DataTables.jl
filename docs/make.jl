@@ -3,7 +3,7 @@ using Documenter, QueryTables
 makedocs(
 	modules = [QueryTables],
     sitename = "QueryTables.jl",
-    format=Documenter.HTML(analytics="UA-132838790-1"),
+    analytics="UA-132838790-1",
 	pages = [
         "Introduction" => "index.md"
     ]
