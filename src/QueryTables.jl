@@ -1,7 +1,6 @@
 module QueryTables
 
-import TableShowUtils, IteratorInterfaceExtensions, TableTraits,
-    TableTraitsUtils
+import TableShowUtils, TableTraitsUtils
 
 using DataValues
 
