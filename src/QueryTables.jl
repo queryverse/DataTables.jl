@@ -35,11 +35,15 @@ columns(dt::DataTable) = getfield(dt, :columns)
 
 Base.size(dt::DataTable) = size(columns(dt)[1])
 
-# TODO Unclear whether we need this or not
-# Base.IndexStyle(::Type{DataTable}) = Base.IndexLinear()
+Base.IndexStyle(::Type{DataTable}) = Base.IndexLinear()
 
-function Base.checkbounds(::Type{Bool}, dt::DataTable, I...)
-    return all(col -> checkbounds(Bool, col, I...), columns(dt))
+function Base.checkbounds(::Type{Bool}, dt::DataTable, i)
+    cols = columns(dt)
+    if length(cols)==0
+        return true
+    else
+        return checkbounds(Bool, cols[1], i)
+    end
 end
 
 @inline function Base.getindex(dt::DataTable{T}, i::Int) where {T}
