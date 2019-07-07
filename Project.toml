@@ -1,6 +1,6 @@
 name = "QueryTables"
 uuid = "30ad73d7-305e-5999-88c2-a7d9e8945169"
-version = "0.1.0"
+version = "0.1.1-DEV"
 
 [deps]
 DataValues = "e7dc6d0d-1eca-5fa6-8ad6-5aecde8b7ea5"
