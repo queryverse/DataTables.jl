@@ -16,5 +16,5 @@ test = ["Test"]
 [compat]
 DataValues = "≥ 0.4.7"
 TableShowUtils = "≥ 0.2.2"
-TableTraitsUtils = "≥ 0.4.0"
+TableTraitsUtils = "0.4, 1"
 julia = "1"
