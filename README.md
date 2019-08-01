@@ -35,7 +35,7 @@ To access an individual column by name, use the `.` dot syntax:
 
 ```julia
 julia> dt.Age
-3-element Array{Float64,1}:
+3-element ReadOnlyArrays.ReadOnlyArray{Float64,1,Array{Float64,1}}:
  23.0
  43.0
  56.0
