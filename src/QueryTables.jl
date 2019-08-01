@@ -1,6 +1,6 @@
 module QueryTables
 
-import TableShowUtils, TableTraitsUtils
+import TableShowUtils, TableTraitsUtils, ReadOnlyArrays
 
 using DataValues
 
@@ -11,6 +11,7 @@ struct DataTable{T, TCOLS} <: AbstractVector{T}
 end
 
 function fromNT(nt)
+    nt = map(i->i isa ReadOnlyArrays.ReadOnlyArray ? i : ReadOnlyArrays.ReadOnlyArray(i), nt)
     tx = typeof(nt)
     et = NamedTuple{propertynames(nt), Tuple{(eltype(fieldtype(tx, i)) for i in 1:fieldcount(typeof(nt)))...}}
     return DataTable{et, typeof(nt)}(nt)
