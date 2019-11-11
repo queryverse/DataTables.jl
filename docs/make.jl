@@ -1,8 +1,8 @@
-using Documenter, QueryTables
+using Documenter, DataTables
 
 makedocs(
-	modules = [QueryTables],
-    sitename = "QueryTables.jl",
+	modules = [DataTables],
+    sitename = "DataTables.jl",
     analytics="UA-132838790-1",
 	pages = [
         "Introduction" => "index.md"
@@ -10,5 +10,5 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/queryverse/QueryTables.jl.git"
+    repo = "github.com/queryverse/DataTables.jl.git"
 )

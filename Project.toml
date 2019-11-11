@@ -1,5 +1,5 @@
-name = "QueryTables"
-uuid = "30ad73d7-305e-5999-88c2-a7d9e8945169"
+name = "DataTables"
+uuid = "743a1d0a-8ebc-4f23-814b-50d006366bc6"
 version = "0.1.1-DEV"
 
 [deps]

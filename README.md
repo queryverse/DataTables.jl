@@ -1,9 +1,9 @@
-# QueryTables.jl
+# DataTables.jl
 
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
-[![Build Status](https://travis-ci.com/queryverse/QueryTables.jl.svg?branch=master)](https://travis-ci.com/queryverse/QueryTables.jl)
-[![Build status](https://ci.appveyor.com/api/projects/status/nxtbjw982bd7bby6/branch/master?svg=true)](https://ci.appveyor.com/project/queryverse/querytables-jl/branch/master)
-[![codecov](https://codecov.io/gh/queryverse/QueryTables.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/queryverse/QueryTables.jl)
+[![Build Status](https://travis-ci.com/queryverse/DataTables.jl.svg?branch=master)](https://travis-ci.com/queryverse/DataTables.jl)
+[![Build status](https://ci.appveyor.com/api/projects/status/nxtbjw982bd7bby6/branch/master?svg=true)](https://ci.appveyor.com/project/queryverse/DataTables-jl/branch/master)
+[![codecov](https://codecov.io/gh/queryverse/DataTables.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/queryverse/DataTables.jl)
 
 ## Overview
 
@@ -14,7 +14,7 @@ A simple read-only table type for the [Queryverse](https://github.com/queryverse
 You can install the package at the Pkg REPL-mode with:
 
 ```julia
-pkg> add QueryTables
+pkg> add DataTables
 ```
 
 ## Getting started
@@ -59,7 +59,7 @@ You can also create a new `DataTable` by passing any object to its constructor t
 
 ## Alternatives
 
-QueryTables.jl is not the only julia initiative for tabular data, there are many other packages that have similar goals. Take a look at [DataFrames.jl](https://github.com/JuliaData/DataFrames.jl), [IndexedTables.jl](https://github.com/JuliaComputing/IndexedTables.jl) and [TypedTables.jl](https://github.com/FugroRoames/TypedTables.jl) (which in particular was a major inspiration for this package here). If I missed other packages, please let me know and I'll add them to this list!
+DataTables.jl is not the only julia initiative for tabular data, there are many other packages that have similar goals. Take a look at [DataFrames.jl](https://github.com/JuliaData/DataFrames.jl), [IndexedTables.jl](https://github.com/JuliaComputing/IndexedTables.jl) and [TypedTables.jl](https://github.com/FugroRoames/TypedTables.jl) (which in particular was a major inspiration for this package here). If I missed other packages, please let me know and I'll add them to this list!
 
 ## Getting help
 

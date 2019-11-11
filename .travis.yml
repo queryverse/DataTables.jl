@@ -17,8 +17,7 @@ branches:
 matrix:
   allow_failures:
   - julia: nightly
-after_success:
-  - julia -e 'using Pkg; cd(Pkg.dir("QueryTables")); Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
+codecov: true
 
 jobs:
   include:

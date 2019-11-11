@@ -1,4 +1,4 @@
-QueryTables.jl is licensed under the MIT License:
+DataTables.jl is licensed under the MIT License:
 
 > Copyright (c) 2019: David Anthoff.
 >

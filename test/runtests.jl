@@ -1,7 +1,7 @@
-using QueryTables
+using DataTables
 using Test
 
-@testset "QueryTables" begin
+@testset "DataTables" begin
 
 dt1 = DataTable(a=[1,2,3], b=[4.,5.,6.], c=["John", "Sally", "Jim"])
 

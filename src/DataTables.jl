@@ -1,4 +1,4 @@
-module QueryTables
+module DataTables
 
 import TableShowUtils, TableTraitsUtils, ReadOnlyArrays
 
