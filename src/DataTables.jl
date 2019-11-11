@@ -36,7 +36,7 @@ columns(dt::DataTable) = getfield(dt, :columns)
 
 Base.size(dt::DataTable) = size(columns(dt)[1])
 
-Base.IndexStyle(::Type{DataTable}) = Base.IndexLinear()
+Base.IndexStyle(::Type{T}) where {T<:DataTable}= Base.IndexLinear()
 
 function Base.checkbounds(::Type{Bool}, dt::DataTable, i)
     cols = columns(dt)

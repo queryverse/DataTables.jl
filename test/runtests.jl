@@ -7,6 +7,9 @@ dt1 = DataTable(a=[1,2,3], b=[4.,5.,6.], c=["John", "Sally", "Jim"])
 
 @testset "Core" begin
 
+@test Base.IndexStyle(DataTable) isa Base.IndexLinear
+@test Base.IndexStyle(typeof(dt1)) isa Base.IndexLinear
+
 @test length(dt1) == 3
 @test dt1.a == [1,2,3]
 @test dt1.b == [4.,5.,6.]
