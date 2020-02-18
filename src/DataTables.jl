@@ -6,22 +6,22 @@ using DataValues
 
 export DataTable, NA, isna
 
-struct DataTable{T, TCOLS} <: AbstractVector{T}
+struct DataTable{T,TCOLS} <: AbstractVector{T}
     columns::TCOLS
 end
 
 function fromNT(nt)
     nt = map(i->i isa ReadOnlyArrays.ReadOnlyArray ? i : ReadOnlyArrays.ReadOnlyArray(i), nt)
     tx = typeof(nt)
-    et = NamedTuple{propertynames(nt), Tuple{(eltype(fieldtype(tx, i)) for i in 1:fieldcount(typeof(nt)))...}}
-    return DataTable{et, typeof(nt)}(nt)
+    et = NamedTuple{propertynames(nt),Tuple{(eltype(fieldtype(tx, i)) for i in 1:fieldcount(typeof(nt)))...}}
+    return DataTable{et,typeof(nt)}(nt)
 end
 
 swap_dva_in(A) = A
 swap_dva_in(A::Array{<:DataValue}) = DataValueArray(A)
 
 function DataTable(;cols...)
-    return fromNT(map(col -> swap_dva_in(col), values(cols)))
+    return fromNT(map(col->swap_dva_in(col), values(cols)))
 end
 
 function DataTable(table)
@@ -36,11 +36,11 @@ columns(dt::DataTable) = getfield(dt, :columns)
 
 Base.size(dt::DataTable) = size(columns(dt)[1])
 
-Base.IndexStyle(::Type{T}) where {T<:DataTable}= Base.IndexLinear()
+Base.IndexStyle(::Type{T}) where {T <: DataTable} = Base.IndexLinear()
 
 function Base.checkbounds(::Type{Bool}, dt::DataTable, i)
     cols = columns(dt)
-    if length(cols)==0
+    if length(cols) == 0
         return true
     else
         return checkbounds(Bool, cols[1], i)
@@ -49,7 +49,7 @@ end
 
 @inline function Base.getindex(dt::DataTable{T}, i::Int) where {T}
     @boundscheck checkbounds(dt, i)
-    return map(col -> @inbounds(getindex(col, i)), columns(dt))
+    return map(col->@inbounds(getindex(col, i)), columns(dt))
 end
 
 function Base.show(io::IO, dt::DataTable)
