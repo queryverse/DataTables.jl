@@ -11,7 +11,7 @@ struct DataTable{T,TCOLS} <: AbstractVector{T}
 end
 
 function fromNT(nt)
-    nt = map(i->i isa ReadOnlyArrays.ReadOnlyArray ? i : ReadOnlyArrays.ReadOnlyArray(i), nt)
+    nt = map(i -> i isa ReadOnlyArrays.ReadOnlyArray ? i : ReadOnlyArrays.ReadOnlyArray(i), nt)
     tx = typeof(nt)
     et = NamedTuple{propertynames(nt),Tuple{(eltype(fieldtype(tx, i)) for i in 1:fieldcount(typeof(nt)))...}}
     return DataTable{et,typeof(nt)}(nt)
@@ -21,7 +21,7 @@ swap_dva_in(A) = A
 swap_dva_in(A::Array{<:DataValue}) = DataValueArray(A)
 
 function DataTable(;cols...)
-    return fromNT(map(col->swap_dva_in(col), values(cols)))
+    return fromNT(map(col -> swap_dva_in(col), values(cols)))
 end
 
 function DataTable(table)
@@ -49,7 +49,7 @@ end
 
 @inline function Base.getindex(dt::DataTable{T}, i::Int) where {T}
     @boundscheck checkbounds(dt, i)
-    return map(col->@inbounds(getindex(col, i)), columns(dt))
+    return map(col -> @inbounds(getindex(col, i)), columns(dt))
 end
 
 function Base.show(io::IO, dt::DataTable)

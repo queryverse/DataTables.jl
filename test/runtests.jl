@@ -3,7 +3,7 @@ using Test
 
 @testset "DataTables" begin
 
-    dt1 = DataTable(a = [1,2,3], b = [4.,5.,6.], c = ["John", "Sally", "Jim"])
+    dt1 = DataTable(a=[1,2,3], b=[4.,5.,6.], c=["John", "Sally", "Jim"])
 
     @testset "Core" begin
 
@@ -31,13 +31,13 @@ using Test
         @test sprint(show, dt1) ==
     "3x3 DataTable\na │ b   │ c    \n──┼─────┼──────\n1 │ 4.0 │ John \n2 │ 5.0 │ Sally\n3 │ 6.0 │ Jim  "
 
-        @test sprint((stream, data)->show(stream, "text/plain", data), dt1) ==
+        @test sprint((stream, data) -> show(stream, "text/plain", data), dt1) ==
     "3x3 DataTable\na │ b   │ c    \n──┼─────┼──────\n1 │ 4.0 │ John \n2 │ 5.0 │ Sally\n3 │ 6.0 │ Jim  "
 
-        @test sprint((stream, data)->show(stream, "text/html", data), dt1) ==
+        @test sprint((stream, data) -> show(stream, "text/html", data), dt1) ==
     "<table><thead><tr><th>a</th><th>b</th><th>c</th></tr></thead><tbody><tr><td>1</td><td>4.0</td><td>&quot;John&quot;</td></tr><tr><td>2</td><td>5.0</td><td>&quot;Sally&quot;</td></tr><tr><td>3</td><td>6.0</td><td>&quot;Jim&quot;</td></tr></tbody></table>"
 
-        @test sprint((stream, data)->show(stream, "application/vnd.dataresource+json", data), dt1) ==
+        @test sprint((stream, data) -> show(stream, "application/vnd.dataresource+json", data), dt1) ==
     "{\"schema\":{\"fields\":[{\"name\":\"a\",\"type\":\"integer\"},{\"name\":\"b\",\"type\":\"number\"},{\"name\":\"c\",\"type\":\"string\"}]},\"data\":[{\"a\":1,\"b\":4.0,\"c\":\"John\"},{\"a\":2,\"b\":5.0,\"c\":\"Sally\"},{\"a\":3,\"b\":6.0,\"c\":\"Jim\"}]}"
 
         @test showable("text/html", dt1) == true
