@@ -1,6 +1,6 @@
 name = "DataTables"
 uuid = "743a1d0a-8ebc-4f23-814b-50d006366bc6"
-version = "0.1.1-DEV"
+version = "0.2.0-DEV"
 
 [deps]
 DataValues = "e7dc6d0d-1eca-5fa6-8ad6-5aecde8b7ea5"
@@ -9,14 +9,15 @@ TableTraitsUtils = "382cd787-c1b6-5bf2-a167-d5b971a19bda"
 ReadOnlyArrays = "988b38a3-91fc-5605-94a2-ee2116b3bd83"
 
 [extras]
+TestItemRunner = "f8b46487-2199-4994-9208-9a1283c18c0a"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [targets]
-test = ["Test"]
+test = ["Test", "TestItemRunner"]
 
 [compat]
-DataValues = "0.4.7"
-TableShowUtils = "0.2.2"
+DataValues = "0.4.7, 0.5"
+TableShowUtils = "0.2.2, 0.3"
 TableTraitsUtils = "0.4, 1"
-julia = "1"
+julia = "1.12"
 ReadOnlyArrays = "0.1.1"

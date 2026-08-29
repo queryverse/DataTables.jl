@@ -5,3 +5,6 @@ docs/site/
 .DS_Store
 docs/Manifest.toml
 .vscode
+*.jl.*.cov
+test-output*.*
+Manifest.toml
