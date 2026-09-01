@@ -56,6 +56,14 @@ julia> dt.Name[2]
 
 You can also create a new `DataTable` by passing any object to its constructor that implements the [TableTraits.jl](https://github.com/queryverse/TableTraits.jl) interface. That includes everything in the [Queryverse](https://www.queryverse.org/), but also many other table types like [DataFrames.jl](https://github.com/JuliaData/DataFrames.jl), [IndexedTables.jl](https://github.com/JuliaComputing/IndexedTables.jl) etc. Every `DataTable` also implements the [TableTraits.jl](https://github.com/queryverse/TableTraits.jl) interface and can therefore be passed to any function that accepts a [TableTraits.jl](https://github.com/queryverse/TableTraits.jl) value.
 
+## Arrow storage
+
+`DataTable` stores its columns in [Apache Arrow](https://arrow.apache.org/) physical layouts wherever the element type has an Arrow representation (fixed-width numbers, `Bool`, strings, `Date`/`DateTime`/`Time`, and their missing-value versions). The user-facing behavior is unchanged — columns are read-only `AbstractVector`s and missing data uses [DataValues.jl](https://github.com/queryverse/DataValues.jl) — but the underlying memory is Arrow-native, which will allow zero-copy handoff of a `DataTable` to Arrow consumers such as the DuckDB query engine via the Arrow C data interface. Element types without an Arrow representation fall back to plain read-only column storage, so any Julia type can be stored in a column.
+
+The Arrow implementation is vendored under `src/vendor/` from the [Arrow.jl 3.0 core rewrite](https://github.com/apache/arrow-julia/tree/core-rewrite) until upstream registers those modules as standalone packages; see `src/vendor/README.md` for provenance and licensing.
+
+Note that `DataTable` constructors take ownership of the vectors passed to them: column memory may alias the input vectors, so do not mutate or resize them after constructing the table.
+
 ## Alternatives
 
 DataTables.jl is not the only julia initiative for tabular data, there are many other packages that have similar goals. Take a look at [DataFrames.jl](https://github.com/JuliaData/DataFrames.jl), [IndexedTables.jl](https://github.com/JuliaComputing/IndexedTables.jl) and [TypedTables.jl](https://github.com/JuliaData/TypedTables.jl) (which in particular was a major inspiration for this package here). If I missed other packages, please let me know and I'll add them to this list!

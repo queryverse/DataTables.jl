@@ -19,3 +19,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## Vendored third-party code
+
+Files under `src/vendor/` are vendored from Apache Arrow.jl
+(https://github.com/apache/arrow-julia) and are licensed under the Apache
+License, Version 2.0, not the MIT license above. See `src/vendor/README.md`,
+`src/vendor/LICENSE-APACHE.md`, and `src/vendor/NOTICE`.

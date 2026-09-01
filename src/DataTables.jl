@@ -1,8 +1,14 @@
 module DataTables
 
-import TableShowUtils, TableTraitsUtils, ReadOnlyArrays
+import TableShowUtils, TableTraits, TableTraitsUtils, ReadOnlyArrays
+import Dates
 
 using DataValues
+
+include(joinpath("vendor", "ArrowCore.jl"))
+include(joinpath("vendor", "ArrowStrings.jl"))
+import .ArrowCore
+import .ArrowStrings: ArrowStrings, ArrowString, ArrowStringPayload, StringVector
 
 export DataTable, NA, isna
 
@@ -10,21 +16,27 @@ struct DataTable{T,TCOLS} <: AbstractVector{T}
     columns::TCOLS
 end
 
-function fromNT(nt)
-    nt = map(i -> i isa ReadOnlyArrays.ReadOnlyArray ? i : ReadOnlyArrays.ReadOnlyArray(i), nt)
-    tx = typeof(nt)
-    et = NamedTuple{propertynames(nt),Tuple{(eltype(fieldtype(tx, i)) for i in 1:fieldcount(typeof(nt)))...}}
-    return DataTable{et,typeof(nt)}(nt)
+include("columns.jl")
+
+function fromNT(nt::NamedTuple{names}) where {names}
+    cols = NamedTuple{names}(ntuple(i -> prepare_column(names[i], nt[i]), length(names)))
+    tx = typeof(cols)
+    et = NamedTuple{names,Tuple{(eltype(fieldtype(tx, i)) for i in 1:fieldcount(tx))...}}
+    return DataTable{et,tx}(cols)
 end
 
-swap_dva_in(A) = A
-swap_dva_in(A::Array{<:DataValue}) = DataValueArray(A)
+fromNT(nt::NamedTuple{()}) = DataTable{NamedTuple{(),Tuple{}},NamedTuple{(),Tuple{}}}(nt)
 
 function DataTable(;cols...)
-    return fromNT(map(col -> swap_dva_in(col), values(cols)))
+    return fromNT(values(cols))
 end
 
 function DataTable(table)
+    if TableTraits.supports_get_columns_copy(table)
+        cols = TableTraits.get_columns_copy(table)
+        cols isa NamedTuple && return fromNT(cols)
+    end
+
     cols, colnames = TableTraitsUtils.create_columns_from_iterabletable(table)
 
     return fromNT(NamedTuple{tuple(colnames...)}(tuple(cols...)))
