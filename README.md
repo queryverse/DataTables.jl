@@ -47,6 +47,13 @@ julia> dt[2]
 (Name = "Sally", Age = 43.0, Children = 0)
 ```
 
+To select a subset of rows, index with a range, a vector of indices, or a Bool mask; the result is again a `DataTable`:
+
+```julia
+julia> dt[2:3]
+julia> dt[dt.Age .> 30]
+```
+
 If you want to access the value in an individual cell, it is generally more efficient to first access the column via the dot syntax, and then select the value for a given row via indexing:
 
 ```julia

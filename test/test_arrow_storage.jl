@@ -127,7 +127,7 @@ end
     using DataTables: arrowdata
     using DataValues
 
-    dt = DataTable(a=[:x, :y, :z], b=Any[1, "two", 3.0], c=[DataValue(:s), NA])
+    dt = DataTable(a=[:x, :y, :z], b=Any[1, "two", 3.0], c=[DataValue(:s), NA, DataValue(:t)])
     @test dt.a == [:x, :y, :z]
     @test dt.b == Any[1, "two", 3.0]
     @test dt.c[1] == DataValue(:s)

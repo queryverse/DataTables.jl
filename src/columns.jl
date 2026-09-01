@@ -232,6 +232,9 @@ prepare_column(name::Symbol, v::Array{P,1}) where {P<:DataValue} =
     prepare_column(name, DataValueArray(v))
 
 function prepare_column(name::Symbol, v::Vector{T}) where {T}
+    # Union{} is a subtype of everything, so it would take the primitive
+    # branch below and mis-dispatch; it has no Arrow type.
+    T === Union{} && return ReadOnlyArrays.ReadOnlyArray(v)
     nm = String(name)
     if T <: ARROW_PRIMITIVE || T === Bool
         return primitive_column(nm, v)
@@ -267,6 +270,7 @@ function prepare_column(name::Symbol, v::StringVector{ELT}) where {ELT}
 end
 
 function prepare_column(name::Symbol, dva::DataValueArray{P,1}) where {P}
+    P === Union{} && return ReadOnlyArrays.ReadOnlyArray(dva)
     nm = String(name)
     if P <: ARROW_PRIMITIVE
         return nullable_primitive_column(nm, dva)
