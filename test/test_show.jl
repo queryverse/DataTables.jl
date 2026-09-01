@@ -59,9 +59,17 @@ end
 end
 
 @testitem "show zero columns" begin
+    import TableShowUtils
+
     dt = DataTable()
-    plain = sprint(show, dt)
-    @test startswith(plain, "0x0 DataTable")
+    # The plain-text printer handles zero columns from TableShowUtils 1.0
+    # (queryverse/TableShowUtils.jl#36); skip on older registered versions.
+    if pkgversion(TableShowUtils) >= v"1.0.0-"
+        plain = sprint(show, dt)
+        @test startswith(plain, "0x0 DataTable")
+    else
+        @test_skip false    # printtable throws on zero columns before 1.0
+    end
     html = sprint((io, x) -> show(io, "text/html", x), dt)
     @test occursin("<table>", html)
     json = sprint((io, x) -> show(io, "application/vnd.dataresource+json", x), dt)

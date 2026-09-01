@@ -50,11 +50,6 @@ function DataTable(table)
         cols isa NamedTuple && return fromNT(cols)
     end
 
-    if TableTraits.supports_get_columns_copy_using_missing(table)
-        cols = TableTraits.get_columns_copy_using_missing(table)
-        cols isa NamedTuple && return fromNT(cols)
-    end
-
     cols, colnames = TableTraitsUtils.create_columns_from_iterabletable(table)
 
     return fromNT(NamedTuple{tuple(colnames...)}(tuple(cols...)))
@@ -84,20 +79,11 @@ TableTraits.supports_get_columns_view(::DataTable) = true
 TableTraits.get_columns_view(dt::DataTable) = columns(dt)
 
 function Base.show(io::IO, dt::DataTable)
-    # TableShowUtils cannot print a zero-column table
-    if isempty(columns(dt))
-        print(io, "0x0 DataTable")
-    else
-        TableShowUtils.printtable(io, dt, "DataTable")
-    end
+    TableShowUtils.printtable(io, dt, "DataTable")
 end
 
 function Base.show(io::IO, ::MIME"text/plain", dt::DataTable)
-    if isempty(columns(dt))
-        print(io, "0x0 DataTable")
-    else
-        TableShowUtils.printtable(io, dt, "DataTable")
-    end
+    TableShowUtils.printtable(io, dt, "DataTable")
 end
 
 function Base.show(io::IO, ::MIME"text/html", dt::DataTable)

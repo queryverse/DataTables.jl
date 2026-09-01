@@ -61,24 +61,28 @@ end
     @test ArrowCore.getvalue(arrowfield(dt, :a), arrowdata(dt, :a), 2) === Int64(42)
 end
 
-@testitem "consume get_columns_copy_using_missing source" begin
+@testitem "consume get_columns_copy DataValueArray zero-copy" begin
     import TableTraits
     using DataValues
-    using DataTables: arrowdata
+    using DataTables: arrowfield, arrowdata
     import DataTables.ArrowCore
 
-    struct FakeMissingSource end
-    TableTraits.supports_get_columns_copy_using_missing(::FakeMissingSource) = true
-    TableTraits.get_columns_copy_using_missing(::FakeMissingSource) =
-        (a=Union{Missing,Int}[1, missing, 3], s=Union{Missing,String}["x", missing, "z"])
+    struct FakeDataValueSource
+        a::DataValueArray{Int,1}
+    end
+    TableTraits.supports_get_columns_copy(::FakeDataValueSource) = true
+    TableTraits.get_columns_copy(src::FakeDataValueSource) = (a=src.a,)
 
-    dt = DataTable(FakeMissingSource())
+    dva = DataValueArray([1, 2, 3], [false, true, false])
+    dt = DataTable(FakeDataValueSource(dva))
     @test eltype(dt.a) === DataValue{Int}
     @test isna(dt.a[2])
     @test dt.a[3] == DataValue(3)
-    @test isna(dt.s[2])
-    @test dt.s[1] == DataValue("x")
-    @test arrowdata(dt, :a) !== nothing
-    @test arrowdata(dt, :s) !== nothing
     @test ArrowCore.nullcount(arrowdata(dt, :a)) == 1
+
+    # The DataValueArray's values/isna are aliased into the Arrow storage
+    # zero-copy: a write to the handed-over array is visible on both sides.
+    dva.values[3] = 42
+    @test dt.a[3] == DataValue(42)
+    @test ArrowCore.getvalue(arrowfield(dt, :a), arrowdata(dt, :a), 3) === Int64(42)
 end

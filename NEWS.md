@@ -11,8 +11,8 @@
   `last(dt, n)` do too.
 * `propertynames` returns the column names (tab completion in the REPL).
 * `DataTable(table)` consumes the columnar `TableTraits.get_columns_copy`
-  and `get_columns_copy_using_missing` interfaces when a source provides
-  them, avoiding row iteration; `DataTable(dt::DataTable)` aliases columns
+  interface when a source provides it — DataValueArray columns alias into
+  the Arrow storage zero-copy; `DataTable(dt::DataTable)` aliases columns
   without copying. DataTable implements `TableTraits.get_columns_view`.
 * Inputs of `Vector{Union{Missing,T}}` with an Arrow-mappable `T` are now
   presented through the `DataValue` facade like other missing data.
