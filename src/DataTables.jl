@@ -12,6 +12,32 @@ import .ArrowStrings: ArrowStrings, ArrowString, ArrowStringPayload, StringVecto
 
 export DataTable, NA, isna
 
+"""
+    DataTable(; cols...)
+    DataTable(table)
+
+A simple, fast, read-only table. A `DataTable` is an `AbstractVector` of
+`NamedTuple` rows; columns are accessed by name via `dt.colname` and are
+themselves read-only `AbstractVector`s. Indexing with a range, a vector of
+indices, or a `Bool` mask returns a new `DataTable` with the selected rows.
+Missing values are represented as `DataValues.DataValue`.
+
+`DataTable(; cols...)` builds a table from keyword-argument column vectors.
+`DataTable(table)` builds a table from any TableTraits.jl source (a columnar
+handoff via `TableTraits.get_columns_copy` is used when the source supports
+it, otherwise rows are iterated); `DataTable(dt::DataTable)` reuses the
+existing columns without copying.
+
+Columns whose element type has an Apache Arrow representation (fixed-width
+numbers, `Bool`, strings, `Date`/`DateTime`/`Time`, and their `DataValue`
+versions) are stored in Arrow physical layouts; string elements are
+`ArrowString <: AbstractString`. Any other element type is stored in a plain
+read-only column, so every Julia type can be stored.
+
+The constructors take ownership of the vectors passed to them: column
+storage may alias the input vectors, so do not mutate or resize them after
+constructing the table.
+"""
 struct DataTable{T,TCOLS} <: AbstractVector{T}
     columns::TCOLS
 end
